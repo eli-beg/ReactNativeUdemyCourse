@@ -75,12 +75,12 @@ const TabsAndroid = () => {
     <BottomTabAndroid.Navigator
       shifting={true}
       barStyle={{
-        backgroundColor: 'orange',
+        backgroundColor: '#bb1a93',
       }}
       labeled={false}
       // sceneAnimationEnabled={true}
       screenOptions={{
-        tabBarColor: 'green',
+        tabBarColor: '#e8c5e0',
       }}>
       <BottomTabAndroid.Group
         screenOptions={({route}) => ({
@@ -101,7 +101,7 @@ const TabsAndroid = () => {
               <Icon
                 name={iconName}
                 size={30}
-                color="#900"
+                color="white"
                 style={{height: 60}}
               />
             );

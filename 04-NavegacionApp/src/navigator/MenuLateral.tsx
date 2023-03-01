@@ -5,6 +5,7 @@ import {
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import {SettingsScreen} from '../screens/SettingsScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
 // import StackNavigator from './StackNavigator';
 import {View, Image, Text} from 'react-native';
 import {styles} from '../theme/appTheme';
@@ -40,11 +41,23 @@ const MenuInterno = ({navigation}: DrawerContentComponentProps) => {
         <TouchableOpacity
           style={styles.menuBoton}
           onPress={() => navigation.navigate('Tabs')}>
+          <Icon
+            name="earth-outline"
+            size={25}
+            color="grey"
+            style={{height: '100%', paddingRight: 10}}
+          />
           <Text style={styles.menuTexto}>Navegacion</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuBoton}
           onPress={() => navigation.navigate('SettingsScreen')}>
+          <Icon
+            name="settings-outline"
+            size={25}
+            color="grey"
+            style={{height: '100%', paddingRight: 10}}
+          />
           <Text style={styles.menuTexto}>Ajustes</Text>
         </TouchableOpacity>
       </View>

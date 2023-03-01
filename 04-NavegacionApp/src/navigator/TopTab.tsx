@@ -1,10 +1,10 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {ChatScreen} from '../screens/ChatScreen';
 import {ContactsScreen} from '../screens/ContactsScreen';
 import {AlbumsScreen} from '../screens/AlbumsScreen';
 import {colores} from '../theme/appTheme';
-import {Text} from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -25,25 +25,45 @@ export const TopTabNavigator = () => {
           elevation: 0,
           shadowColor: 'transparent',
         },
+
         tabBarIcon: ({color}) => {
           let iconName = '';
           switch (route.name) {
             case 'ChatScreen':
-              iconName = 'Ch';
+              iconName = 'chatbox-ellipses-outline';
               break;
             case 'AlbumsScreen':
-              iconName = 'Al';
+              iconName = 'people-outline';
               break;
             case 'ContactsScreen':
-              iconName = 'Co';
+              iconName = 'albums-outline';
               break;
           }
-          return <Text style={{color}}>{iconName}</Text>;
+          return (
+            <Icon
+              name={iconName}
+              size={25}
+              color="#af3491"
+              style={{height: 60, width: 30, paddingBottom: 30}}
+            />
+          );
         },
       })}>
-      <Tab.Screen name="ChatScreen" component={ChatScreen} />
-      <Tab.Screen name="ContactsScreen" component={ContactsScreen} />
-      <Tab.Screen name="AlbumsScreen" component={AlbumsScreen} />
+      <Tab.Screen
+        name="ChatScreen"
+        options={{title: 'Chat'}}
+        component={ChatScreen}
+      />
+      <Tab.Screen
+        name="ContactsScreen"
+        options={{title: 'Contacts'}}
+        component={ContactsScreen}
+      />
+      <Tab.Screen
+        name="AlbumsScreen"
+        options={{title: 'Album'}}
+        component={AlbumsScreen}
+      />
     </Tab.Navigator>
   );
 };
