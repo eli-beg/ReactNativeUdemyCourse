@@ -11,7 +11,11 @@ interface Props {
 export const HorizontalSlider = ({title, movies}: Props) => {
   return (
     <View style={{height: 250}}>
-      {title && <Text style={{fontSize: 30, fontWeight: 'bold'}}>{title}</Text>}
+      {title && (
+        <Text style={{fontSize: 30, fontWeight: 'bold', padding: 10}}>
+          {title}
+        </Text>
+      )}
       <FlatList
         data={movies}
         renderItem={({item}: any) => (
