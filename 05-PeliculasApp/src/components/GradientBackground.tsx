@@ -16,8 +16,9 @@ export const GradientBackground = ({children}: Props) => {
   useEffect(() => {
     fadeIn(() => {
       setPrevMainColors(colors);
-      fadeOut(0);
+      fadeOut();
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
 
   return (
