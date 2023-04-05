@@ -26,6 +26,7 @@ export const FlatListMenuItem = ({menuItem}: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     flexDirection: 'row',
   },
   itemText: {
