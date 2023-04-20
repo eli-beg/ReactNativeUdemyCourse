@@ -41,7 +41,11 @@ export const InfiniteScrollScreen = () => {
         data={numbers}
         keyExtractor={item => item.toString()}
         renderItem={({item}) => renderItem(item)}
-        ListHeaderComponent={<HeaderTitle title="Infinite Scroll" />}
+        ListHeaderComponent={() => (
+          <View style={{marginHorizontal: 20}}>
+            <HeaderTitle title="Infinite Scroll" />
+          </View>
+        )}
         onEndReached={loadMore}
         onEndReachedThreshold={0.5} // a partir de la mitad empieza a cargar mas datos
         ListFooterComponent={() => (
