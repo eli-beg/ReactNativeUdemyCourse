@@ -1,15 +1,18 @@
-import React from 'react';
+import {StackScreenProps} from '@react-navigation/stack';
+import React, {useRef, useState} from 'react';
 import {
+  Animated,
   Dimensions,
   Image,
   ImageSourcePropType,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
-
-import {HeaderTitle} from '../components/HeaderTitle';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {useAnimation} from '../hooks/useAnimation';
 
 const {height: screenHeight, width: screenWidth} = Dimensions.get('window');
 
@@ -18,6 +21,8 @@ interface Slide {
   desc: string;
   img: ImageSourcePropType;
 }
+
+interface Props extends StackScreenProps<any, any> {}
 
 const items: Slide[] = [
   {
@@ -36,7 +41,13 @@ const items: Slide[] = [
     img: require('../assets/slide-3.png'),
   },
 ];
-export const SlidesScreen = () => {
+export const SlidesScreen = ({navigation}: Props) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const {opacity, fadeIn} = useAnimation();
+
+  const isVisible = useRef(false);
+
   const renderItem = (item: Slide) => {
     return (
       <View
@@ -62,7 +73,6 @@ export const SlidesScreen = () => {
   };
   return (
     <View style={{flex: 1}}>
-      <HeaderTitle title="Slider Screen" />
       <Carousel
         // ref={(c) => { this._carousel = c; }}
         data={items}
@@ -71,7 +81,46 @@ export const SlidesScreen = () => {
         sliderHeight={screenHeight}
         itemWidth={screenWidth}
         layout="default"
+        onSnapToItem={index => {
+          setActiveIndex(index);
+          if (index === items.length - 1) {
+            isVisible.current = true;
+            fadeIn();
+          }
+        }}
       />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginHorizontal: 20,
+          alignItems: 'center',
+        }}>
+        <Pagination
+          dotsLength={items.length}
+          activeDotIndex={activeIndex}
+          dotStyle={{
+            width: 10,
+            height: 10,
+            borderRadius: 10,
+          }}
+        />
+
+        <Animated.View
+          style={{
+            opacity: opacity,
+          }}>
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.8}
+            onPress={() => {
+              isVisible.current ? navigation.navigate('Home') : null;
+            }}>
+            <Text style={{fontSize: 25, color: 'white'}}>Entrar</Text>
+            <Icon name="chevron-forward-outline" size={30} color="white" />
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
     </View>
   );
 };
@@ -84,5 +133,14 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
+  },
+  button: {
+    flexDirection: 'row',
+    backgroundColor: '#5856D6',
+    width: 130,
+    height: 45,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
