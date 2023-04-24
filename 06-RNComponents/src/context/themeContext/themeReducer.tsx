@@ -15,10 +15,10 @@ export const lightTheme: ThemeState = {
     background: 'white',
     card: 'green',
     text: 'black',
-    border: 'orange',
+    border: 'grey',
     notification: 'violet',
   },
-  dividerColor: 'rgba(0,0,0,0.7)',
+  dividerColor: 'rgba(0,0,0,0.6)',
 };
 
 export const darkTheme: ThemeState = {
@@ -29,10 +29,10 @@ export const darkTheme: ThemeState = {
     background: 'black',
     card: 'green',
     text: 'white',
-    border: 'orange',
+    border: 'white',
     notification: 'violet',
   },
-  dividerColor: 'rgba(0,0,0,0.7)',
+  dividerColor: 'rgba(255,255,255,0.8)',
 };
 //funcion pura que recibe el state y una accion y devuelve algo del state
 

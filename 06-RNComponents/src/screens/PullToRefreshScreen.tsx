@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {RefreshControl, ScrollView, View} from 'react-native';
 import {HeaderTitle} from '../components/HeaderTitle';
+import {ThemeContext} from '../context/themeContext/ThemeContext';
 
 export const PullToRefreshScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState<string>();
 
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
   const onRefresh = () => {
     setRefreshing(true);
     setTimeout(() => {
@@ -17,7 +21,11 @@ export const PullToRefreshScreen = () => {
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl
+          refreshing={refreshing}
+          colors={[colors.primary]}
+          onRefresh={onRefresh}
+        />
       }>
       <View>
         <HeaderTitle title="Pull To Refresh" />

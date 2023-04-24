@@ -1,32 +1,45 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, Animated, Button} from 'react-native';
 import {useAnimation} from '../hooks/useAnimation';
+import {ThemeContext} from '../context/themeContext/ThemeContext';
 
 export const Animation101Screen = () => {
   const {fadeIn, fadeOut, opacity, position, startMoving} = useAnimation();
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
 
   return (
-    <View style={styles.container}>
+    <View style={stylesAnimation.container}>
       <Animated.View
         style={{
-          ...styles.purpleBox,
+          ...stylesAnimation.purpleBox,
           opacity,
           transform: [{translateY: position}],
         }}
       />
-      <Button
-        title="fadeIn"
-        onPress={() => {
-          fadeIn();
-          startMoving(-100);
-        }}
-      />
-      <Button title="fadeOut" onPress={() => fadeOut()} />
+      <View style={{marginVertical: 10}}>
+        <Button
+          title="fadeIn"
+          color={colors.primary}
+          onPress={() => {
+            fadeIn();
+            startMoving(-100);
+          }}
+        />
+      </View>
+      <View>
+        <Button
+          title="fadeOut"
+          color={colors.primary}
+          onPress={() => fadeOut()}
+        />
+      </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const stylesAnimation = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
