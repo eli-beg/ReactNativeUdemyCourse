@@ -9,7 +9,7 @@ import {ItemSeparator} from '../components/ItemSeparator';
 
 const HomeScreen = () => {
   return (
-    <View style={{flex: 1, backgroundColor: 'pink'}}>
+    <View style={{flex: 1}}>
       <View style={styles.globalMargin}>
         <FlatList
           data={menuItems}
