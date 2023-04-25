@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {SectionList, StyleSheet, Text, View} from 'react-native';
 import {HeaderTitle} from '../components/HeaderTitle';
 import {styles} from '../theme/appTheme';
 import {ItemSeparator} from '../components/ItemSeparator';
+import {ThemeContext} from '../context/themeContext/ThemeContext';
 
 interface Casas {
   casa: string;
@@ -107,8 +108,16 @@ const casas: Casas[] = [
 ];
 
 export const SectionListScreen = () => {
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
   return (
-    <View style={{...styles.globalMargin, flex: 1, backgroundColor: 'white'}}>
+    <View
+      style={{
+        ...styles.globalMargin,
+        flex: 1,
+        backgroundColor: colors.background,
+      }}>
       <SectionList
         sections={casas}
         keyExtractor={(item, index) => item + index}
@@ -119,14 +128,26 @@ export const SectionListScreen = () => {
           </View>
         )}
         stickySectionHeadersEnabled={true}
-        renderItem={({item}) => <Text>{item}</Text>}
+        renderItem={({item}) => (
+          <Text style={{color: colors.text}}>{item}</Text>
+        )}
         renderSectionHeader={({section}) => (
-          <View style={stylesSection.header}>
+          <View
+            style={{
+              ...stylesSection.header,
+              backgroundColor: colors.background,
+            }}>
             <HeaderTitle title={section.casa} />
           </View>
         )}
         renderSectionFooter={({section}) => (
-          <HeaderTitle title={'Total: ' + section.data.length} />
+          <View
+            style={{
+              ...stylesSection.footer,
+              backgroundColor: colors.background,
+            }}>
+            <HeaderTitle title={'Total: ' + section.data.length} />
+          </View>
         )}
         ItemSeparatorComponent={() => <ItemSeparator />}
         showsVerticalScrollIndicator={false}
@@ -137,12 +158,10 @@ export const SectionListScreen = () => {
 
 const stylesSection = StyleSheet.create({
   header: {
-    backgroundColor: 'white',
     paddingVertical: 5,
   },
   footer: {
     marginBottom: 70,
-    backgroundColor: 'white',
     paddingVertical: 5,
   },
 });
