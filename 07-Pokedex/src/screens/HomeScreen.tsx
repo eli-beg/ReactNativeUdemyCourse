@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, FlatList, Text, ActivityIndicator} from 'react-native';
+import {Image, FlatList, Text, ActivityIndicator, View} from 'react-native';
 import {styles} from '../theme/appTheme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
@@ -15,24 +15,28 @@ export const HomeScreen = () => {
         source={require('../assets/pokebola.png')}
         style={styles.pokebolaBG}
       />
-      <FlatList
-        data={simplePokemonList}
-        keyExtractor={pokemon => pokemon.id}
-        showsVerticalScrollIndicator={false}
-        numColumns={2}
-        renderItem={({item}) => <PokemonCard pokemon={item} />}
-        //header component
-        ListHeaderComponent={
-          <Text style={{...styles.title, ...styles.globalMargin}}>Pokedex</Text>
-        }
-        //infinitescroll
+      <View style={{alignItems: 'center'}}>
+        <FlatList
+          data={simplePokemonList}
+          keyExtractor={pokemon => pokemon.id}
+          showsVerticalScrollIndicator={false}
+          numColumns={2}
+          renderItem={({item}) => <PokemonCard pokemon={item} />}
+          //header component
+          ListHeaderComponent={
+            <Text style={{...styles.title, ...styles.globalMargin}}>
+              Pokedex
+            </Text>
+          }
+          //infinitescroll
 
-        onEndReached={loadPokemons}
-        onEndReachedThreshold={0.4}
-        ListFooterComponent={
-          <ActivityIndicator style={{height: 100}} size={30} color="grey" />
-        }
-      />
+          onEndReached={loadPokemons}
+          onEndReachedThreshold={0.4}
+          ListFooterComponent={
+            <ActivityIndicator style={{height: 100}} size={30} color="grey" />
+          }
+        />
+      </View>
     </>
   );
 };
