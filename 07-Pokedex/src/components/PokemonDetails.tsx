@@ -71,7 +71,7 @@ export const PokemonDetails = ({pokemon}: Props) => {
 
       {/* Moves */}
       <View style={styles.container}>
-        <Text style={styles.title}>Movess</Text>
+        <Text style={styles.title}>Moves</Text>
         <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
           {pokemon.moves.map(({move}) => (
             <Text
@@ -81,6 +81,36 @@ export const PokemonDetails = ({pokemon}: Props) => {
             </Text>
           ))}
         </View>
+      </View>
+
+      {/* Stats */}
+      <View style={styles.container}>
+        <Text style={styles.title}>Stats</Text>
+        <View>
+          {pokemon.stats.map((stat, i) => (
+            <View key={stat.stat.name + i} style={{flexDirection: 'row'}}>
+              <Text
+                key={stat.stat.name}
+                style={{...styles.regularText, width: 150, marginRight: 10}}>
+                {stat.stat.name}
+              </Text>
+              <Text style={{...styles.regularText, fontWeight: 'bold'}}>
+                {stat.base_stat}
+              </Text>
+            </View>
+          ))}
+        </View>
+      </View>
+      {/* sprite final */}
+      <View
+        style={{
+          marginBottom: 80,
+          alignItems: 'center',
+        }}>
+        <Image
+          source={{uri: pokemon.sprites.front_default}}
+          style={styles.basicSprite}
+        />
       </View>
     </ScrollView>
   );
@@ -99,7 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   basicSprite: {
-    width: 150,
+    width: 100,
     height: 100,
   },
 });
