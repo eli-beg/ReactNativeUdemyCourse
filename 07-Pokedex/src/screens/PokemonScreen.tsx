@@ -11,6 +11,7 @@ import {
 import {RootStackParams} from '../navigation/Navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {usePokemon} from '../hooks/usePokemon';
+import {PokemonDetails} from '../components/PokemonDetails';
 
 interface Props extends StackScreenProps<RootStackParams, 'PokemonScreen'> {}
 
@@ -19,8 +20,6 @@ export const PokemonScreen = ({navigation, route}: Props) => {
   const {name, id, picture} = simplePokemon;
 
   const {isLoading, pokemon} = usePokemon(id);
-
-  console.log(pokemon);
 
   return (
     <View style={{flex: 1}}>
@@ -41,9 +40,13 @@ export const PokemonScreen = ({navigation, route}: Props) => {
         <Image source={{uri: picture}} style={styles.pokemonImage} />
       </View>
 
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator color={color} size={50} />
-      </View>
+      {isLoading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator color={color} size={50} />
+        </View>
+      ) : (
+        <PokemonDetails pokemon={pokemon} />
+      )}
     </View>
   );
 };
