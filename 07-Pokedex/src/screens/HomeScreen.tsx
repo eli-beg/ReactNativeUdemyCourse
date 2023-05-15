@@ -24,7 +24,13 @@ export const HomeScreen = () => {
           renderItem={({item}) => <PokemonCard pokemon={item} />}
           //header component
           ListHeaderComponent={
-            <Text style={{...styles.title, ...styles.globalMargin}}>
+            <Text
+              style={{
+                ...styles.title,
+                ...styles.globalMargin,
+                paddingBottom: 10,
+                paddingTop: 10,
+              }}>
               Pokedex
             </Text>
           }

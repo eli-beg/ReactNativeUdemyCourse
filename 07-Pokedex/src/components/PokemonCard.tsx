@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   View,
@@ -8,15 +8,39 @@ import {
   Image,
 } from 'react-native';
 import {SimplePokemon} from '../interfaces/pokemonInterfaces';
+import {getImageColors} from '../helpers/getColors';
 
 const windowWidth = Dimensions.get('window').width;
 interface Props {
   pokemon: SimplePokemon;
 }
 export const PokemonCard = ({pokemon}: Props) => {
+  const [bgColor, setBgColor] = useState('grey');
+  const isMounted = useRef(true);
+
+  const getBackgroundColor = async () => {
+    const colors = await getImageColors(pokemon.picture);
+    if (colors.length) {
+      setBgColor(colors[0]);
+    }
+  };
+
+  useEffect(() => {
+    if (!isMounted.current) return;
+    getBackgroundColor();
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   return (
     <TouchableOpacity activeOpacity={0.9}>
-      <View style={{...styles.cardContainer, width: windowWidth * 0.4}}>
+      <View
+        style={{
+          ...styles.cardContainer,
+          width: windowWidth * 0.4,
+          backgroundColor: bgColor,
+        }}>
         <View>
           <Text style={styles.name}>
             {pokemon.name}
@@ -38,7 +62,6 @@ export const PokemonCard = ({pokemon}: Props) => {
 const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 10,
-    backgroundColor: 'red',
     height: 120,
     width: 160,
     marginBottom: 25,
