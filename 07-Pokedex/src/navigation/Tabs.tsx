@@ -21,9 +21,10 @@ export const Tabs = () => {
         tabBarActiveTintColor: '#5856D6',
         tabBarLabelStyle: {marginBottom: 10},
       }}
-      sceneContainerStyle={{
-        backgroundColor: 'red',
-      }}>
+      // sceneContainerStyle={{
+      //   backgroundColor: 'red',
+      // }}
+    >
       <Tab.Screen
         name="HomeScreen"
         component={Navigation}
