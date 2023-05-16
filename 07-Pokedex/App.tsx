@@ -1,16 +1,13 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import Navigation from './src/navigation/Navigation';
+
+import {Tabs} from './src/navigation/Tabs';
 
 const App = () => {
   return (
-    // <View style={{backgroundColor: 'white', flex: 1}}>
-    //   <Text>App Screen</Text>
-    // </View>
     <NavigationContainer>
-      <Navigation />
+      <Tabs />
     </NavigationContainer>
   );
 };
