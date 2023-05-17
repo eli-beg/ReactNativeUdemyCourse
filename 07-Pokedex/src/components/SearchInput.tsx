@@ -1,10 +1,14 @@
 import React from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet, TextInput, StyleProp, ViewStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export const SearchInput = () => {
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const SearchInput = ({style}: Props) => {
   return (
-    <View>
+    <View style={{...(style as any)}}>
       <View style={styles.textbackground}>
         <TextInput
           placeholder="Search Pokemon"
