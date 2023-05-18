@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, FlatList, Text, Dimensions} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SearchInput} from '../components/SearchInput';
@@ -6,12 +6,25 @@ import {usePokemonSearch} from '../hooks/usePokemonSearch';
 import {styles} from '../theme/appTheme';
 import {PokemonCard} from '../components/PokemonCard';
 import {Loading} from '../components/Loading';
+import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 
 export const SearchScreen = () => {
   const {top} = useSafeAreaInsets();
   const {isFetching, simplePokemonList} = usePokemonSearch();
-
+  const [term, setTerm] = useState('');
   const screenWidth = Dimensions.get('window').width;
+  const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([]);
+
+  useEffect(() => {
+    if (term.length === 0) {
+      setPokemonFiltered([]);
+    }
+
+    const pokeFiltered = simplePokemonList.filter(poke =>
+      poke.name.toLowerCase().includes(term.toLowerCase()),
+    );
+    setPokemonFiltered(pokeFiltered);
+  }, [simplePokemonList, term]);
 
   if (isFetching) {
     return <Loading />;
@@ -23,16 +36,15 @@ export const SearchScreen = () => {
         ...stylesSearch.container,
       }}>
       <SearchInput
+        onDebounce={value => setTerm(value)}
         style={{
-          position: 'absolute',
-          zIndex: 999,
+          ...stylesSearch.searchInput,
           width: screenWidth - 40,
-          marginTop: 10,
         }}
       />
 
       <FlatList
-        data={simplePokemonList}
+        data={pokemonFiltered}
         keyExtractor={pokemon => pokemon.id}
         showsVerticalScrollIndicator={false}
         numColumns={2}
@@ -47,7 +59,7 @@ export const SearchScreen = () => {
               paddingTop: 10,
               marginTop: top + 50,
             }}>
-            Pokedex
+            {term}
           </Text>
         }
       />
@@ -57,4 +69,9 @@ export const SearchScreen = () => {
 
 const stylesSearch = StyleSheet.create({
   container: {flex: 1, marginHorizontal: 20},
+  searchInput: {
+    position: 'absolute',
+    zIndex: 999,
+    marginTop: 10,
+  },
 });
