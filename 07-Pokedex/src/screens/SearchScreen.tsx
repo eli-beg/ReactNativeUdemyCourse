@@ -19,11 +19,15 @@ export const SearchScreen = () => {
     if (term.length === 0) {
       setPokemonFiltered([]);
     }
-
-    const pokeFiltered = simplePokemonList.filter(poke =>
-      poke.name.toLowerCase().includes(term.toLowerCase()),
-    );
-    setPokemonFiltered(pokeFiltered);
+    if (isNaN(Number(term))) {
+      const pokeFiltered = simplePokemonList.filter(poke =>
+        poke.name.toLowerCase().includes(term.toLowerCase()),
+      );
+      setPokemonFiltered(pokeFiltered);
+    } else {
+      const pokeFilteredById = simplePokemonList.find(poke => poke.id === term);
+      setPokemonFiltered(pokeFilteredById ? [pokeFilteredById] : []);
+    }
   }, [simplePokemonList, term]);
 
   if (isFetching) {
