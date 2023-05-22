@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, ActivityIndicator} from 'react-native';
 
 export const LoadingScreen = () => {
   return (
-    <View>
-      <Text>LOADING SCREEN</Text>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <ActivityIndicator size={20} />
     </View>
   );
 };
