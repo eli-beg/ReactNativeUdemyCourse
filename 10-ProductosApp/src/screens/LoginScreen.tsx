@@ -55,7 +55,7 @@ export const LoginScreen = ({navigation}: Props) => {
             onSubmitEditing={onLogin}
           />
 
-          <Text style={loginStyles.label}>Contaserña:</Text>
+          <Text style={loginStyles.label}>Contraseña:</Text>
           <TextInput
             placeholder="*******"
             placeholderTextColor={'rgba(255,255,255,0.6)'}
