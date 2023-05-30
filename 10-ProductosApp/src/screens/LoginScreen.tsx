@@ -30,7 +30,7 @@ export const LoginScreen = ({navigation}: Props) => {
     if (errorMessage.length === 0) return;
 
     Alert.alert('Login incorrecto', errorMessage, [
-      {text: 'ok', onPress: () => removeError()},
+      {text: 'ok', onPress: removeError},
     ]);
   }, [errorMessage]);
 
