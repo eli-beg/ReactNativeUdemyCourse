@@ -1,23 +1,32 @@
-import React from 'react';
-import {View, Text, KeyboardAvoidingView, Keyboard} from 'react-native';
+import React, {useContext, useEffect} from 'react';
+import {View, Text, KeyboardAvoidingView, Keyboard, Alert} from 'react-native';
 import {loginStyles} from '../theme/loginTheme';
 import {WhiteLogo} from '../components/WhiteLogo';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {useForm} from '../hooks/useForm';
 import {StackScreenProps} from '@react-navigation/stack';
+import {AuthContext} from '../context/AuthContext';
 
 interface Props extends StackScreenProps<any, any> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
+  const {signUp, errorMessage, removeError} = useContext(AuthContext);
   const {nombre, correo, password, onChange} = useForm({
     nombre: '',
     correo: '',
     password: '',
   });
+  useEffect(() => {
+    if (errorMessage.length === 0) return;
+
+    Alert.alert('Login incorrecto', errorMessage, [
+      {text: 'ok', onPress: removeError},
+    ]);
+  }, [errorMessage]);
 
   const onRegister = () => {
     console.log({nombre, correo, password});
-
+    signUp({nombre, correo, password});
     // con esta funcion saca el teclado de la pantalla al apretar login
     Keyboard.dismiss();
   };
